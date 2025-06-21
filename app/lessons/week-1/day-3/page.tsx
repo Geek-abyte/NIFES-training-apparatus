@@ -534,6 +534,17 @@ export default function Week1Day3() {
             </div>
           </div>
         </div>
+
+        {/* Flexbox Interactive Demo */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Flexbox Properties Interactive Demo</h2>
+          
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {/* Flex Direction Demo */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">1. Flex Direction</h3>
+              <div className="space-y-4">
+                <div>
                   <h4 className="font-medium text-gray-800 mb-2">Column</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex flex-col gap-2">
@@ -770,25 +781,6 @@ export default function Week1Day3() {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center">
-          <Link
-            href="/lessons/week-1/day-2"
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Previous: CSS Basics</span>
-          </Link>
-          
-          <Link
-            href="/lessons/week-2"
-            className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-colors"
-          >
-            <span>Next: Week 2 - JavaScript Basics</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
         {/* Try It Yourself Exercise */}
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-lg p-8 mb-8">
           <h2 className="text-2xl font-bold text-emerald-900 mb-6 flex items-center">
@@ -911,6 +903,25 @@ export default function Week1Day3() {
               <li>• Use consistent spacing with <code className="bg-emerald-200 px-1 rounded">gap</code> property</li>
             </ul>
           </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-between items-center">
+          <Link
+            href="/lessons/week-1/day-2"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Previous: CSS Basics</span>
+          </Link>
+          
+          <Link
+            href="/lessons/week-2"
+            className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-colors"
+          >
+            <span>Next: Week 2 - JavaScript Basics</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </div>
