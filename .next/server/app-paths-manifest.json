@@ -1,6 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/curriculum/page": "app/curriculum/page.js",
-  "/lessons/page": "app/lessons/page.js",
-  "/lessons/week-1/day-1/page": "app/lessons/week-1/day-1/page.js"
+  "/lessons/week-1/day-2/page": "app/lessons/week-1/day-2/page.js"
 }

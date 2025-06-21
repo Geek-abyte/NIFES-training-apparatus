@@ -1,10 +1,24 @@
-import React from 'react'
+'use client'
+
+/*
+ * ACCESSIBILITY & READABILITY GUIDELINES:
+ * - Always use dark text (gray-700, gray-800, gray-900) on light backgrounds
+ * - Use light text (white, gray-50, gray-100) only on dark backgrounds (500+ color variants)
+ * - Avoid light text (100-400 color variants) on light backgrounds
+ * - Test color contrast for readability before committing changes
+ */
+
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Clock, Target, CheckCircle, Code, Layers, Grid } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock, Target, CheckCircle, Code, Layers, Grid, Eye, EyeOff } from 'lucide-react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 export default function Week1Day3() {
+  const [showPreview1, setShowPreview1] = useState(false)
+  const [showPreview2, setShowPreview2] = useState(false)
+  const [showPreview3, setShowPreview3] = useState(false)
+  const [showPreview4, setShowPreview4] = useState(false)
   const flexboxBasics = `/* Flexbox Container */
 .container {
     display: flex;
@@ -274,80 +288,258 @@ export default function Week1Day3() {
           </div>
         </div>
 
-        {/* Visual Examples */}
+        {/* Interactive Flexbox Examples */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">3. Visual Examples</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">3. Flexbox Properties in Action</h2>
           
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Horizontal Layout (flex-direction: row)</h3>
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <div className="flex gap-2 justify-center">
-                  <div className="bg-blue-500 text-white p-3 rounded text-center flex-1 max-w-24">Box 1</div>
-                  <div className="bg-green-500 text-white p-3 rounded text-center flex-1 max-w-24">Box 2</div>
-                  <div className="bg-purple-500 text-white p-3 rounded text-center flex-1 max-w-24">Box 3</div>
-                </div>
-                <p className="text-sm text-gray-600 mt-2 text-center">display: flex; gap: 0.5rem;</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Flex Direction</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.container {
+  display: flex;
+  flex-direction: row; /* or column */
+}
+.item { flex: 1; padding: 1rem; }`}
+                </SyntaxHighlighter>
               </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview1(!showPreview1)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview1 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview1 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview1 && (
+                <div className="bg-white border-2 border-blue-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-blue-700 mb-4 font-semibold bg-blue-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Flex direction in action:
+                  </div>
+                  <div className="space-y-6">
+                    <div className="bg-blue-50 border-2 border-blue-300 p-5 rounded-lg border-l-4 border-l-blue-500">
+                      <div className="text-sm font-mono text-blue-600 mb-3">flex-direction: row</div>
+                      <div className="flex gap-2">
+                        <div className="bg-blue-100 text-blue-900 border-2 border-blue-400 p-3 rounded text-center flex-1 font-medium">Item 1</div>
+                        <div className="bg-blue-200 text-blue-900 border-2 border-blue-500 p-3 rounded text-center flex-1 font-medium">Item 2</div>
+                        <div className="bg-blue-300 text-blue-900 border-2 border-blue-600 p-3 rounded text-center flex-1 font-medium">Item 3</div>
+                      </div>
+                    </div>
+                    <div className="bg-green-50 border-2 border-green-300 p-5 rounded-lg border-l-4 border-l-green-500">
+                      <div className="text-sm font-mono text-green-600 mb-3">flex-direction: column</div>
+                      <div className="flex flex-col gap-2 max-w-32 mx-auto">
+                        <div className="bg-green-100 text-green-900 border-2 border-green-400 p-3 rounded text-center font-medium">Item 1</div>
+                        <div className="bg-green-200 text-green-900 border-2 border-green-500 p-3 rounded text-center font-medium">Item 2</div>
+                        <div className="bg-green-300 text-green-900 border-2 border-green-600 p-3 rounded text-center font-medium">Item 3</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-blue-600 mt-2 font-medium">
+                    💡 Row arranges items horizontally, column arranges them vertically
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Justify Content</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.container {
+  display: flex;
+  justify-content: center; /* or space-between */
+}
+/* Controls horizontal alignment */`}
+                </SyntaxHighlighter>
+              </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview2(!showPreview2)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview2 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview2 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview2 && (
+                <div className="bg-white border-2 border-green-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-green-700 mb-4 font-semibold bg-green-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Justify content alignment:
+                  </div>
+                  <div className="space-y-6">
+                    <div className="bg-purple-50 border-2 border-purple-300 p-5 rounded-lg border-l-4 border-l-purple-500">
+                      <div className="text-sm font-mono text-purple-600 mb-3">justify-content: center</div>
+                      <div className="flex justify-center gap-2">
+                        <div className="bg-purple-100 text-purple-900 border-2 border-purple-400 p-3 rounded text-center font-medium w-20">A</div>
+                        <div className="bg-purple-200 text-purple-900 border-2 border-purple-500 p-3 rounded text-center font-medium w-20">B</div>
+                        <div className="bg-purple-300 text-purple-900 border-2 border-purple-600 p-3 rounded text-center font-medium w-20">C</div>
+                      </div>
+                    </div>
+                    <div className="bg-orange-50 border-2 border-orange-300 p-5 rounded-lg border-l-4 border-l-orange-500">
+                      <div className="text-sm font-mono text-orange-600 mb-3">justify-content: space-between</div>
+                      <div className="flex justify-between gap-2">
+                        <div className="bg-orange-100 text-orange-900 border-2 border-orange-400 p-3 rounded text-center font-medium w-20">A</div>
+                        <div className="bg-orange-200 text-orange-900 border-2 border-orange-500 p-3 rounded text-center font-medium w-20">B</div>
+                        <div className="bg-orange-300 text-orange-900 border-2 border-orange-600 p-3 rounded text-center font-medium w-20">C</div>
+                      </div>
+                    </div>
+                    <div className="bg-red-50 border-2 border-red-300 p-5 rounded-lg border-l-4 border-l-red-500">
+                      <div className="text-sm font-mono text-red-600 mb-3">justify-content: space-around</div>
+                      <div className="flex justify-around gap-2">
+                        <div className="bg-red-100 text-red-900 border-2 border-red-400 p-3 rounded text-center font-medium w-20">A</div>
+                        <div className="bg-red-200 text-red-900 border-2 border-red-500 p-3 rounded text-center font-medium w-20">B</div>
+                        <div className="bg-red-300 text-red-900 border-2 border-red-600 p-3 rounded text-center font-medium w-20">C</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Vertical Layout (flex-direction: column)</h3>
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <div className="flex flex-col gap-2 items-center max-w-32 mx-auto">
-                  <div className="bg-blue-500 text-white p-3 rounded text-center w-full">Box 1</div>
-                  <div className="bg-green-500 text-white p-3 rounded text-center w-full">Box 2</div>
-                  <div className="bg-purple-500 text-white p-3 rounded text-center w-full">Box 3</div>
-                </div>
-                <p className="text-sm text-gray-600 mt-2 text-center">flex-direction: column; align-items: center;</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Align Items</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.container {
+  display: flex;
+  align-items: center; /* or flex-start, flex-end */
+  height: 200px;
+}
+/* Controls vertical alignment */`}
+                </SyntaxHighlighter>
               </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview3(!showPreview3)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview3 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview3 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview3 && (
+                <div className="bg-white border-2 border-orange-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-orange-700 mb-4 font-semibold bg-orange-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Align items vertically:
+                  </div>
+                  <div className="space-y-6">
+                    <div className="bg-teal-50 border-2 border-teal-300 p-5 rounded-lg border-l-4 border-l-teal-500">
+                      <div className="text-sm font-mono text-teal-600 mb-3">align-items: flex-start</div>
+                      <div className="flex items-start gap-2 h-24 bg-gray-100 p-2 rounded">
+                        <div className="bg-teal-100 text-teal-900 border-2 border-teal-400 p-2 rounded text-center font-medium w-16 h-8 flex items-center justify-center">A</div>
+                        <div className="bg-teal-200 text-teal-900 border-2 border-teal-500 p-2 rounded text-center font-medium w-16 h-12 flex items-center justify-center">B</div>
+                        <div className="bg-teal-300 text-teal-900 border-2 border-teal-600 p-2 rounded text-center font-medium w-16 h-6 flex items-center justify-center">C</div>
+                      </div>
+                    </div>
+                    <div className="bg-indigo-50 border-2 border-indigo-300 p-5 rounded-lg border-l-4 border-l-indigo-500">
+                      <div className="text-sm font-mono text-indigo-600 mb-3">align-items: center</div>
+                      <div className="flex items-center gap-2 h-24 bg-gray-100 p-2 rounded">
+                        <div className="bg-indigo-100 text-indigo-900 border-2 border-indigo-400 p-2 rounded text-center font-medium w-16 h-8 flex items-center justify-center">A</div>
+                        <div className="bg-indigo-200 text-indigo-900 border-2 border-indigo-500 p-2 rounded text-center font-medium w-16 h-12 flex items-center justify-center">B</div>
+                        <div className="bg-indigo-300 text-indigo-900 border-2 border-indigo-600 p-2 rounded text-center font-medium w-16 h-6 flex items-center justify-center">C</div>
+                      </div>
+                    </div>
+                    <div className="bg-pink-50 border-2 border-pink-300 p-5 rounded-lg border-l-4 border-l-pink-500">
+                      <div className="text-sm font-mono text-pink-600 mb-3">align-items: stretch</div>
+                      <div className="flex items-stretch gap-2 h-24 bg-gray-100 p-2 rounded">
+                        <div className="bg-pink-100 text-pink-900 border-2 border-pink-400 p-2 rounded text-center font-medium w-16 flex items-center justify-center">A</div>
+                        <div className="bg-pink-200 text-pink-900 border-2 border-pink-500 p-2 rounded text-center font-medium w-16 flex items-center justify-center">B</div>
+                        <div className="bg-pink-300 text-pink-900 border-2 border-pink-600 p-2 rounded text-center font-medium w-16 flex items-center justify-center">C</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Space Between</h3>
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <div className="flex justify-between">
-                  <div className="bg-red-500 text-white p-3 rounded text-center">Left</div>
-                  <div className="bg-yellow-500 text-white p-3 rounded text-center">Center</div>
-                  <div className="bg-indigo-500 text-white p-3 rounded text-center">Right</div>
-                </div>
-                <p className="text-sm text-gray-600 mt-2 text-center">justify-content: space-between;</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Complete Layout</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}`}
+                </SyntaxHighlighter>
               </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview4(!showPreview4)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview4 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview4 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview4 && (
+                <div className="bg-white border-2 border-purple-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-purple-700 mb-4 font-semibold bg-purple-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Complete flexbox layout:
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <div className="text-sm font-bold text-red-600 mb-2">❌ Without Flexbox:</div>
+                      <div className="bg-gray-100 border p-4 rounded h-32">
+                        <div className="bg-red-100 text-red-900 border-2 border-red-400 p-3 rounded text-center inline-block mr-2">Header</div>
+                        <div className="bg-red-200 text-red-900 border-2 border-red-500 p-3 rounded text-center inline-block mr-2">Content</div>
+                        <div className="bg-red-300 text-red-900 border-2 border-red-600 p-3 rounded text-center inline-block">Footer</div>
+                        <div className="text-xs text-gray-600 mt-2">Elements don't center properly</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-green-600 mb-2">✅ With Flexbox:</div>
+                      <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-purple-200 p-8 rounded-lg h-32 flex justify-center items-center gap-4">
+                        <div className="bg-white text-blue-600 border-2 border-blue-500 px-6 py-3 rounded-lg text-center font-medium shadow-lg">Header</div>
+                        <div className="bg-white text-purple-600 border-2 border-purple-500 px-6 py-3 rounded-lg text-center font-medium shadow-lg">Content</div>
+                        <div className="bg-white text-indigo-600 border-2 border-indigo-500 px-6 py-3 rounded-lg text-center font-medium shadow-lg">Footer</div>
+                      </div>
+                      <div className="text-xs text-purple-600 mt-2 font-medium">Perfect centering and spacing with just a few CSS properties!</div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Interactive Flexbox Examples */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <Grid className="h-6 w-6 mr-2" />
-            See Flexbox in Action
-          </h2>
-          
-          <div className="space-y-8">
-            {/* Flex Direction Demo */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">1. Flex Direction</h3>
-              <div className="grid lg:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-medium text-gray-800 mb-2">Row (default)</h4>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex gap-2">
-                      <div className="bg-blue-400 text-white p-3 rounded text-center flex-1">Item 1</div>
-                      <div className="bg-blue-500 text-white p-3 rounded text-center flex-1">Item 2</div>
-                      <div className="bg-blue-600 text-white p-3 rounded text-center flex-1">Item 3</div>
-                    </div>
-                  </div>
-                  <code className="text-xs bg-gray-100 px-2 py-1 rounded mt-2 block">flex-direction: row;</code>
-                </div>
-                
-                <div>
                   <h4 className="font-medium text-gray-800 mb-2">Column</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex flex-col gap-2">
-                      <div className="bg-green-400 text-white p-3 rounded text-center">Item 1</div>
-                      <div className="bg-green-500 text-white p-3 rounded text-center">Item 2</div>
-                      <div className="bg-green-600 text-white p-3 rounded text-center">Item 3</div>
+                      <div className="bg-green-500 text-white p-3 rounded text-center font-medium">Item 1</div>
+                      <div className="bg-green-600 text-white p-3 rounded text-center font-medium">Item 2</div>
+                      <div className="bg-green-700 text-white p-3 rounded text-center font-medium">Item 3</div>
                     </div>
                   </div>
                   <code className="text-xs bg-gray-100 px-2 py-1 rounded mt-2 block">flex-direction: column;</code>
@@ -363,9 +555,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">Center</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex justify-center gap-2">
-                      <div className="bg-purple-400 text-white p-2 rounded w-16 text-center text-sm">1</div>
-                      <div className="bg-purple-500 text-white p-2 rounded w-16 text-center text-sm">2</div>
-                      <div className="bg-purple-600 text-white p-2 rounded w-16 text-center text-sm">3</div>
+                      <div className="bg-purple-500 text-white p-2 rounded w-16 text-center text-sm font-medium">1</div>
+                      <div className="bg-purple-600 text-white p-2 rounded w-16 text-center text-sm font-medium">2</div>
+                      <div className="bg-purple-700 text-white p-2 rounded w-16 text-center text-sm font-medium">3</div>
                     </div>
                   </div>
                 </div>
@@ -374,9 +566,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">Space Between</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex justify-between">
-                      <div className="bg-orange-400 text-white p-2 rounded w-16 text-center text-sm">1</div>
-                      <div className="bg-orange-500 text-white p-2 rounded w-16 text-center text-sm">2</div>
-                      <div className="bg-orange-600 text-white p-2 rounded w-16 text-center text-sm">3</div>
+                      <div className="bg-orange-500 text-white p-2 rounded w-16 text-center text-sm font-medium">1</div>
+                      <div className="bg-orange-600 text-white p-2 rounded w-16 text-center text-sm font-medium">2</div>
+                      <div className="bg-orange-700 text-white p-2 rounded w-16 text-center text-sm font-medium">3</div>
                     </div>
                   </div>
                 </div>
@@ -385,9 +577,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">Space Around</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex justify-around">
-                      <div className="bg-red-400 text-white p-2 rounded w-16 text-center text-sm">1</div>
-                      <div className="bg-red-500 text-white p-2 rounded w-16 text-center text-sm">2</div>
-                      <div className="bg-red-600 text-white p-2 rounded w-16 text-center text-sm">3</div>
+                      <div className="bg-red-500 text-white p-2 rounded w-16 text-center text-sm font-medium">1</div>
+                      <div className="bg-red-600 text-white p-2 rounded w-16 text-center text-sm font-medium">2</div>
+                      <div className="bg-red-700 text-white p-2 rounded w-16 text-center text-sm font-medium">3</div>
                     </div>
                   </div>
                 </div>
@@ -402,9 +594,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">Start</h4>
                   <div className="bg-gray-50 p-4 rounded-lg h-32">
                     <div className="flex items-start gap-2 h-full">
-                      <div className="bg-teal-400 text-white p-2 rounded text-sm">Item</div>
-                      <div className="bg-teal-500 text-white p-3 rounded text-sm">Taller</div>
-                      <div className="bg-teal-600 text-white p-2 rounded text-sm">Item</div>
+                      <div className="bg-teal-500 text-white p-2 rounded text-sm font-medium">Item</div>
+                      <div className="bg-teal-600 text-white p-3 rounded text-sm font-medium">Taller</div>
+                      <div className="bg-teal-700 text-white p-2 rounded text-sm font-medium">Item</div>
                     </div>
                   </div>
                 </div>
@@ -413,9 +605,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">Center</h4>
                   <div className="bg-gray-50 p-4 rounded-lg h-32">
                     <div className="flex items-center gap-2 h-full">
-                      <div className="bg-pink-400 text-white p-2 rounded text-sm">Item</div>
-                      <div className="bg-pink-500 text-white p-3 rounded text-sm">Taller</div>
-                      <div className="bg-pink-600 text-white p-2 rounded text-sm">Item</div>
+                      <div className="bg-pink-500 text-white p-2 rounded text-sm font-medium">Item</div>
+                      <div className="bg-pink-600 text-white p-3 rounded text-sm font-medium">Taller</div>
+                      <div className="bg-pink-700 text-white p-2 rounded text-sm font-medium">Item</div>
                     </div>
                   </div>
                 </div>
@@ -424,9 +616,9 @@ export default function Week1Day3() {
                   <h4 className="font-medium text-gray-800 mb-2">End</h4>
                   <div className="bg-gray-50 p-4 rounded-lg h-32">
                     <div className="flex items-end gap-2 h-full">
-                      <div className="bg-indigo-400 text-white p-2 rounded text-sm">Item</div>
-                      <div className="bg-indigo-500 text-white p-3 rounded text-sm">Taller</div>
-                      <div className="bg-indigo-600 text-white p-2 rounded text-sm">Item</div>
+                      <div className="bg-indigo-500 text-white p-2 rounded text-sm font-medium">Item</div>
+                      <div className="bg-indigo-600 text-white p-3 rounded text-sm font-medium">Taller</div>
+                      <div className="bg-indigo-700 text-white p-2 rounded text-sm font-medium">Item</div>
                     </div>
                   </div>
                 </div>
@@ -543,35 +735,35 @@ export default function Week1Day3() {
             <Layers className="h-6 w-6 mr-2" />
             Week 1 Project: Profile Homepage
           </h2>
-          <p className="text-blue-100 mb-6">
+          <p className="text-blue-50 mb-6 font-medium">
             Congratulations! You've completed Week 1. Your profile homepage now includes:
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Semantic HTML structure</span>
               </li>
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Beautiful CSS styling</span>
               </li>
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Flexible layouts with Flexbox</span>
               </li>
             </ul>
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Responsive design principles</span>
               </li>
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Professional appearance</span>
               </li>
               <li className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-green-300" />
+                <CheckCircle className="h-4 w-4 text-green-200" />
                 <span>Solid foundation for Week 2</span>
               </li>
             </ul>
@@ -662,7 +854,7 @@ export default function Week1Day3() {
                 {/* Header Card */}
                 <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl p-8 mb-6 text-center shadow-lg">
                   <h1 className="text-3xl font-bold mb-2">Sarah Johnson</h1>
-                  <p className="text-emerald-100 text-lg">Web Development Student</p>
+                  <p className="text-emerald-50 text-lg font-medium">Web Development Student</p>
                 </div>
                 
                 {/* Content Cards using Flexbox */}

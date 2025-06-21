@@ -1,10 +1,24 @@
-import React from 'react'
+'use client'
+
+/*
+ * ACCESSIBILITY & READABILITY GUIDELINES:
+ * - Always use dark text (gray-700, gray-800, gray-900) on light backgrounds
+ * - Use light text (white, gray-50, gray-100) only on dark backgrounds (500+ color variants)
+ * - Avoid light text (100-400 color variants) on light backgrounds
+ * - Test color contrast for readability before committing changes
+ */
+
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { ArrowLeft, ArrowRight, CheckCircle, Clock, Target, Code, Palette, Eye } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle, Clock, Target, Code, Palette, Eye, EyeOff } from 'lucide-react'
 
 export default function Week1Day2() {
+  const [showPreview1, setShowPreview1] = useState(false)
+  const [showPreview2, setShowPreview2] = useState(false)
+  const [showPreview3, setShowPreview3] = useState(false)
+  const [showPreview4, setShowPreview4] = useState(false)
   const cssExample = `/* Basic CSS structure */
 body {
     margin: 0;
@@ -343,172 +357,237 @@ a:hover {
           </div>
         </div>
 
-        {/* CSS Properties with Visual Examples */}
+        {/* CSS Properties with Interactive Examples */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <Eye className="h-6 w-6 mr-2" />
-            CSS Properties in Action
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">2. CSS Properties in Action</h2>
           
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Text Properties */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-4">Text Styling</h3>
-              <div className="space-y-3">
-                <div className="bg-white border rounded p-3">
-                  <div style={{ color: 'red', fontWeight: 'bold' }}>color: red;</div>
-                </div>
-                <div className="bg-white border rounded p-3">
-                  <div style={{ fontSize: '20px' }}>font-size: 20px;</div>
-                </div>
-                <div className="bg-white border rounded p-3">
-                  <div style={{ fontFamily: 'Georgia, serif' }}>font-family: Georgia;</div>
-                </div>
-                <div className="bg-white border rounded p-3">
-                  <div style={{ textAlign: 'center' }}>text-align: center;</div>
-                </div>
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Text Styling</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`h1 { color: red; font-size: 24px; }
+p { font-family: Georgia; }
+.center { text-align: center; }
+.bold { font-weight: bold; }`}
+                </SyntaxHighlighter>
               </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview1(!showPreview1)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview1 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview1 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview1 && (
+                <div className="bg-white border-2 border-blue-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-blue-700 mb-4 font-semibold bg-blue-50 px-3 py-2 rounded">
+                    👁️ Live Preview - How CSS text styling works:
+                  </div>
+                  <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h1 style={{ color: 'red', fontSize: '24px', margin: '0 0 8px 0' }}>Red heading with custom size</h1>
+                    <p style={{ fontFamily: 'Georgia, serif', margin: '8px 0', color: '#374151' }}>This paragraph uses Georgia font family</p>
+                    <p style={{ textAlign: 'center', margin: '8px 0', backgroundColor: '#e0f2fe', padding: '8px', borderRadius: '4px', color: '#1e40af' }}>This text is centered</p>
+                    <p style={{ fontWeight: 'bold', margin: '8px 0', color: '#374151' }}>This text is bold</p>
+                  </div>
+                  <div className="text-xs text-blue-600 mt-2 font-medium">
+                    💡 Notice how each CSS property changes the text appearance
+                  </div>
+                </div>
+              )}
             </div>
             
-            {/* Background & Colors */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-4">Colors & Backgrounds</h3>
-              <div className="space-y-3">
-                <div className="bg-yellow-200 border rounded p-3">
-                  <div>background-color: yellow;</div>
-                </div>
-                <div style={{ backgroundColor: '#e0f2fe' }} className="border rounded p-3">
-                  <div>background: #e0f2fe;</div>
-                </div>
-                <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white border rounded p-3">
-                  <div className="text-sm">background: gradient;</div>
-                </div>
-                <div className="bg-blue-500 text-white border rounded p-3">
-                  <div>Color combination</div>
-                </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Colors & Backgrounds</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.yellow { background-color: yellow; }
+.blue-bg { background: #e0f2fe; }
+.gradient { background: linear-gradient(blue, purple); }
+.white-text { color: white; }`}
+                </SyntaxHighlighter>
               </div>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview2(!showPreview2)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview2 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview2 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview2 && (
+                <div className="bg-white border-2 border-green-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-green-700 mb-4 font-semibold bg-green-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Colors and backgrounds in action:
+                  </div>
+                  <div className="space-y-4">
+                    <div className="bg-yellow-200 border-2 border-yellow-300 p-4 rounded-lg border-l-4 border-l-yellow-500">
+                      <div className="text-xs font-mono text-yellow-800 mb-2">background-color: yellow;</div>
+                      <div className="text-yellow-900 font-bold">Yellow background color</div>
+                    </div>
+                    <div className="bg-blue-50 border-2 border-blue-300 p-4 rounded-lg border-l-4 border-l-blue-500">
+                      <div className="text-xs font-mono text-blue-600 mb-2">background: #e0f2fe;</div>
+                      <div className="text-blue-900 font-medium">Light blue background with hex color</div>
+                    </div>
+                    <div className="bg-gradient-to-r from-blue-400 to-purple-500 border-2 border-purple-300 p-4 rounded-lg border-l-4 border-l-purple-600">
+                      <div className="text-xs font-mono text-gray-800 mb-2 bg-white px-2 py-1 rounded">background: linear-gradient(blue, purple);</div>
+                      <div className="font-medium text-gray-800 bg-white px-3 py-2 rounded">Beautiful gradient background</div>
+                    </div>
+                    <div className="bg-blue-500 border-2 border-blue-400 p-4 rounded-lg border-l-4 border-l-blue-600">
+                      <div className="text-xs font-mono text-gray-800 mb-2 bg-white px-2 py-1 rounded">color: white; background: blue;</div>
+                      <div className="font-medium text-gray-800 bg-white px-3 py-2 rounded">White text example (now readable!)</div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            
-            {/* Spacing & Layout */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-4">Spacing & Borders</h3>
-              <div className="space-y-3">
-                <div className="bg-white border rounded">
-                  <div style={{ margin: '10px', padding: '10px', backgroundColor: '#f0f8ff' }}>
-                    margin + padding
-                  </div>
-                </div>
-                <div className="bg-white rounded p-2">
-                  <div style={{ border: '3px solid #3b82f6', padding: '8px', borderRadius: '8px' }}>
-                    border + border-radius
-                  </div>
-                </div>
-                <div className="bg-white rounded p-2">
-                  <div style={{ 
-                    padding: '12px', 
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    borderRadius: '6px'
-                  }}>
-                    box-shadow effect
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Before & After Example */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Before & After: Styling Transformation</h2>
-          
-          <div className="grid lg:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-sm mr-2">Before</span>
-                Unstyled HTML
-              </h3>
-              <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
-                <h1 style={{ margin: '16px 0', fontSize: '32px', fontWeight: 'bold' }}>Welcome to My Website</h1>
-                <p style={{ margin: '16px 0' }}>This is a paragraph with no styling applied.</p>
-                <ul style={{ margin: '16px 0', paddingLeft: '40px' }}>
-                  <li>Plain list item</li>
-                  <li>Another item</li>
-                </ul>
-                <button style={{ 
-                  background: 'none', 
-                  border: '1px solid #ccc', 
-                  padding: '4px 8px'
-                }}>
-                  Basic Button
-                </button>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Spacing & Borders</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`.spaced { margin: 20px; padding: 15px; }
+.bordered { border: 2px solid blue; }
+.rounded { border-radius: 10px; }
+.shadow { box-shadow: 0 4px 8px gray; }`}
+                </SyntaxHighlighter>
               </div>
-              <p className="text-sm text-gray-600 mt-2">
-                Raw HTML with browser default styles only
-              </p>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview3(!showPreview3)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview3 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview3 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview3 && (
+                <div className="bg-white border-2 border-orange-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-orange-700 mb-4 font-semibold bg-orange-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Spacing and borders:
+                  </div>
+                  <div className="space-y-6">
+                    <div className="bg-blue-50 border-2 border-blue-300 p-5 rounded-lg border-l-4 border-l-blue-500">
+                      <div className="text-sm font-mono text-blue-600 mb-3">margin + padding</div>
+                      <div className="bg-white border border-blue-200 p-4 rounded" style={{ margin: '20px', padding: '15px' }}>
+                        <div className="text-blue-900 font-medium">This box has margin (outside space) and padding (inside space)</div>
+                      </div>
+                    </div>
+                    <div className="bg-green-50 border-2 border-green-300 p-5 rounded-lg border-l-4 border-l-green-500">
+                      <div className="text-sm font-mono text-green-600 mb-3">border + border-radius</div>
+                      <div style={{ 
+                        border: '3px solid #3b82f6', 
+                        padding: '15px', 
+                        borderRadius: '10px',
+                        backgroundColor: 'white',
+                        margin: '10px'
+                      }}>
+                        <div className="text-green-900 font-medium">Blue border with rounded corners</div>
+                      </div>
+                    </div>
+                    <div className="bg-purple-50 border-2 border-purple-300 p-5 rounded-lg border-l-4 border-l-purple-500">
+                      <div className="text-sm font-mono text-purple-600 mb-3">box-shadow</div>
+                      <div style={{ 
+                        padding: '15px', 
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                        borderRadius: '8px',
+                        backgroundColor: 'white',
+                        margin: '10px'
+                      }}>
+                        <div className="text-purple-900 font-medium">Box with shadow effect</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            
+
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm mr-2">After</span>
-                With CSS Styling
-              </h3>
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-indigo-200 rounded-lg p-6">
-                <h1 style={{ 
-                  color: '#1e40af', 
-                  fontSize: '28px', 
-                  fontFamily: 'Georgia, serif',
-                  margin: '0 0 16px 0',
-                  textAlign: 'center'
-                }}>
-                  Welcome to My Website
-                </h1>
-                <p style={{ 
-                  color: '#374151',
-                  lineHeight: '1.6',
-                  margin: '0 0 16px 0',
-                  padding: '12px',
-                  backgroundColor: 'white',
-                  borderRadius: '8px',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                }}>
-                  This paragraph now has beautiful styling with colors, spacing, and shadows.
-                </p>
-                <ul style={{ 
-                  margin: '0 0 16px 0', 
-                  listStyle: 'none', 
-                  padding: '0' 
-                }}>
-                  <li style={{
-                    backgroundColor: 'white',
-                    margin: '8px 0',
-                    padding: '8px 12px',
-                    borderLeft: '4px solid #3b82f6',
-                    borderRadius: '4px'
-                  }}>✨ Styled list item</li>
-                  <li style={{
-                    backgroundColor: 'white',
-                    margin: '8px 0',
-                    padding: '8px 12px',
-                    borderLeft: '4px solid #10b981',
-                    borderRadius: '4px'
-                  }}>🎨 Another beautiful item</li>
-                </ul>
-                <button style={{ 
-                  backgroundColor: '#3b82f6',
-                  color: 'white',
-                  border: 'none',
-                  padding: '12px 24px',
-                  borderRadius: '8px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(59, 130, 246, 0.3)'
-                }}>
-                  Beautiful Button
-                </button>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Before & After</h3>
+              <div className="bg-gray-50 rounded p-4 mb-4">
+                <SyntaxHighlighter 
+                  language="css" 
+                  style={vscDarkPlus}
+                  className="text-sm rounded"
+                  customStyle={{ fontSize: '12px', margin: 0, padding: '8px' }}
+                >
+{`/* Transform plain HTML into styled content */
+.styled-section {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}`}
+                </SyntaxHighlighter>
               </div>
-              <p className="text-sm text-gray-600 mt-2">
-                Same HTML with CSS magic applied! 🎨
-              </p>
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowPreview4(!showPreview4)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors mb-4"
+              >
+                {showPreview4 ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span>{showPreview4 ? 'Hide Preview' : 'Show Preview'}</span>
+              </button>
+              
+              {/* Preview */}
+              {showPreview4 && (
+                <div className="bg-white border-2 border-purple-300 rounded-lg p-6 shadow-lg">
+                  <div className="text-sm text-purple-700 mb-4 font-semibold bg-purple-50 px-3 py-2 rounded">
+                    👁️ Live Preview - Complete transformation:
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <div className="text-sm font-bold text-red-600 mb-2">❌ BEFORE (No CSS):</div>
+                      <div className="bg-gray-100 border p-4 rounded">
+                        <h2 style={{ margin: '8px 0', fontSize: '18px', color: '#374151' }}>Welcome</h2>
+                        <p style={{ margin: '8px 0', color: '#374151' }}>Plain text content</p>
+                        <button style={{ border: '1px solid #ccc', padding: '4px 8px', background: 'white', color: '#374151' }}>
+                          Button
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-green-600 mb-2">✅ AFTER (With CSS):</div>
+                      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-8 rounded-xl shadow-lg border-2 border-indigo-300">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-800 bg-white px-4 py-2 rounded">Welcome</h2>
+                        <p className="mb-6 text-gray-800 bg-white px-4 py-2 rounded">Beautiful styled content with gradients and shadows</p>
+                        <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                          Styled Button
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-purple-600 mt-4 font-medium">
+                    🎨 See how CSS transforms plain HTML into beautiful, professional-looking content!
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -676,25 +755,29 @@ a:hover {
                         backgroundColor: '#f0f9ff',
                         padding: '8px 12px',
                         borderRadius: '6px',
-                        borderLeft: '3px solid #0ea5e9'
+                        borderLeft: '3px solid #0ea5e9',
+                        color: '#1e40af'
                       }}>📸 Photography</li>
                       <li style={{
                         backgroundColor: '#f0fdf4',
                         padding: '8px 12px',
                         borderRadius: '6px',
-                        borderLeft: '3px solid #22c55e'
+                        borderLeft: '3px solid #22c55e',
+                        color: '#166534'
                       }}>📚 Reading sci-fi novels</li>
                       <li style={{
                         backgroundColor: '#fefce8',
                         padding: '8px 12px',
                         borderRadius: '6px',
-                        borderLeft: '3px solid #eab308'
+                        borderLeft: '3px solid #eab308',
+                        color: '#a16207'
                       }}>💻 Learning new technologies</li>
                       <li style={{
                         backgroundColor: '#fdf2f8',
                         padding: '8px 12px',
                         borderRadius: '6px',
-                        borderLeft: '3px solid #ec4899'
+                        borderLeft: '3px solid #ec4899',
+                        color: '#be185d'
                       }}>🎸 Playing guitar</li>
                     </ul>
                   </section>

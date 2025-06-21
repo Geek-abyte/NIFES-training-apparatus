@@ -1,5 +1,13 @@
 'use client'
 
+/*
+ * ACCESSIBILITY & READABILITY GUIDELINES:
+ * - Always use dark text (gray-700, gray-800, gray-900) on light backgrounds
+ * - Use light text (white, gray-50, gray-100) only on dark backgrounds (500+ color variants)
+ * - Avoid light text (100-400 color variants) on light backgrounds
+ * - Test color contrast for readability before committing changes
+ */
+
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -435,8 +443,8 @@ export default function Week1Day1() {
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Browser Result:</h3>
               <div className="bg-white border-2 border-gray-300 rounded-lg p-4 min-h-[200px]">
-                <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded mb-4">
-                  <h1 className="text-2xl font-bold">Welcome!</h1>
+                <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 rounded mb-4 border-2 border-purple-300">
+                  <h1 className="text-2xl font-bold text-gray-800 bg-white px-3 py-2 rounded">Welcome!</h1>
                 </div>
                 <div className="p-2">
                   <p className="text-gray-700">This is my first webpage.</p>
